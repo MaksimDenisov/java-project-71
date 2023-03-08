@@ -4,26 +4,24 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class Differ {
+    public static final String INDENT = "  ";
     public static final String FORMAT_STRING = "%s: %s\n";
-    public static final String NOT_CHANGE_STRING = "  " + FORMAT_STRING;
-    public static final String ADD_STRING = "+ " + FORMAT_STRING;
-    public static final String REMOVE_STRING = "- " + FORMAT_STRING;
+    public static final String NOT_CHANGE_STRING = INDENT + "  " + FORMAT_STRING;
+    public static final String ADD_STRING = INDENT + "+ " + FORMAT_STRING;
+    public static final String REMOVE_STRING = INDENT + "- " + FORMAT_STRING;
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public static String generate(String filePath1, String filePath2) throws Exception {
-        Path path1 = Paths.get(filePath1).toAbsolutePath().normalize();
-        Path path2 = Paths.get(filePath2).toAbsolutePath().normalize();
         StringBuilder builder = new StringBuilder();
-        Map<String, String> json1 = getData(Files.readString(path1));
-        Map<String, String> json2 = getData(Files.readString(path2));
+        Map<String, String> json1 = getData(Files.readString(Paths.get(filePath1).toAbsolutePath().normalize()));
+        Map<String, String> json2 = getData(Files.readString(Paths.get(filePath2).toAbsolutePath().normalize()));
         Set<String> keys = new TreeSet<>();
         keys.addAll(json1.keySet());
         keys.addAll(json2.keySet());
@@ -45,7 +43,7 @@ public class Differ {
     }
 
     public static Map<String, String> getData(String content) throws Exception {
-        return objectMapper.readValue(content, new TypeReference<Map<String, String>>() {
+        return OBJECT_MAPPER.readValue(content, new TypeReference<Map<String, String>>() {
         });
     }
 }
