@@ -10,3 +10,5 @@
 [![build](https://github.com/MaksimDenisov/java-project-71/actions/workflows/build.yml/badge.svg)](https://github.com/MaksimDenisov/java-project-71/actions/workflows/build.yml)
 
 [![asciicast](https://asciinema.org/a/oxUbpx8hrIwm76q52oSu7MiVN.svg)](https://asciinema.org/a/oxUbpx8hrIwm76q52oSu7MiVN)
+
+[![asciicast](https://asciinema.org/a/GCXARsopKrqxzwaNa9qFWJB0H.svg)](https://asciinema.org/a/GCXARsopKrqxzwaNa9qFWJB0H)

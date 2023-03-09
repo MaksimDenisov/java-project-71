@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DifferTest {
-
-    @Test
-    void textGenerate() throws Exception {
-        String expected = """
+    private static final String EXPECTED = """
                 {
                   - follow: false
                     host: hexlet.io
@@ -17,7 +14,15 @@ class DifferTest {
                   + timeout: 20
                   + verbose: true
                 }""";
+    @Test
+    void testGenerateFromJson() throws Exception {
         String actual = Differ.generate("src/test/resources/file1.json", "src/test/resources/file2.json");
-        assertEquals(expected, actual);
+        assertEquals(EXPECTED, actual);
+    }
+
+    @Test
+    void testGenerateFromYaml() throws Exception {
+        String actual = Differ.generate("src/test/resources/file1.yaml", "src/test/resources/file2.yaml");
+        assertEquals(EXPECTED, actual);
     }
 }
