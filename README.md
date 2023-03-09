@@ -1,5 +1,5 @@
 ### Hexlet tests and linter status:
-[![Actions Status](https://github.com/MaksimDenisov/java-project-71/workflows/hexlet-check/badge.svg)](https://github.com/MaksimDenisov/java-project-71/actions)
+[![hexlet-check](https://github.com/MaksimDenisov/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/MaksimDenisov/java-project-71/actions/workflows/hexlet-check.yml)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/1a966e4f1ac90967e1b9/maintainability)](https://codeclimate.com/github/MaksimDenisov/java-project-71/maintainability)
 
