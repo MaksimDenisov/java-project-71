@@ -1,10 +1,12 @@
-package hexlet.code;
+package hexlet.code.formatters;
+
+import hexlet.code.Diff;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Formatter {
+public class StylishFormatter implements Formatter.TextFormatter {
     public static final String INDENT = "  ";
     public static final String FORMAT_STRING = "%s: %s\n";
     public static final String NOT_CHANGE_STRING = INDENT + "  " + FORMAT_STRING;
@@ -19,11 +21,20 @@ public class Formatter {
         FORMATS.put(Diff.TYPE.REMOVE, REMOVE_STRING);
     }
 
-    public static String format(List<Diff> diffs) {
+    public String format(List<Diff> diffs) {
         StringBuilder builder = new StringBuilder("{\n");
-        diffs.forEach(diff ->
-                builder.append(String.format(FORMATS.get(diff.getType()), diff.getKey(), diff.getValue())));
+        diffs.forEach(diff -> builder.append(formatLine(diff)));
         return builder.append("}").toString();
+    }
+
+    private String formatLine(Diff diff) {
+        if (diff.getType() == Diff.TYPE.UPDATED) {
+            Diff.Pair pair = (Diff.Pair) diff.getValue();
+            return String.format(FORMATS.get(Diff.TYPE.REMOVE), diff.getKey(), pair.getValue1())
+                    + String.format(FORMATS.get(Diff.TYPE.ADD), diff.getKey(), pair.getValue2());
+        } else {
+            return String.format(FORMATS.get(diff.getType()), diff.getKey(), diff.getValue());
+        }
     }
 }
 

@@ -2,10 +2,21 @@ package hexlet.code;
 
 public final class Diff {
 
-    enum TYPE {
+    public enum TYPE {
         IDENTITY,
+        UPDATED,
         ADD,
         REMOVE
+    }
+
+    public record Pair(Object value1, Object value2) {
+        public Object getValue1() {
+            return value1;
+        }
+
+        public Object getValue2() {
+            return value2;
+        }
     }
 
     private final Diff.TYPE type;
@@ -22,6 +33,10 @@ public final class Diff {
 
     public static Diff removed(String key, Object value) {
         return new Diff(TYPE.REMOVE, key, value);
+    }
+
+    public static Diff update(String key, Object value, Object newValue) {
+        return  new Diff(TYPE.UPDATED, key, new Pair(value, newValue));
     }
 
     private Diff(TYPE type, String key, Object value) {
