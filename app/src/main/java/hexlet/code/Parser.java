@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Parser {
@@ -17,11 +16,10 @@ public class Parser {
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
     private static final ObjectMapper YAML_MAPPER = new YAMLMapper();
-    private static TypeReference<HashMap<String, String>> typeRef
-            = new TypeReference<HashMap<String, String>>() {
-                };
+    private static final TypeReference<Map<String, Object>> TYPE_REFERENCE = new TypeReference<>() {
+    };
 
-    public static Map<String, String> parse(String filePath) throws IOException {
+    public static Map<String, Object> parse(String filePath) throws IOException {
         Path path = Paths.get(filePath).toAbsolutePath().normalize();
         if (path.toString().endsWith(".json")) {
             return parseJson(path);
@@ -32,11 +30,11 @@ public class Parser {
         return Collections.emptyMap();
     }
 
-    private static Map<String, String> parseYaml(Path path) throws IOException {
-        return YAML_MAPPER.readValue(Files.readString(path), typeRef);
+    private static Map<String, Object> parseYaml(Path path) throws IOException {
+        return YAML_MAPPER.readValue(Files.readString(path), TYPE_REFERENCE);
     }
 
-    private static Map<String, String> parseJson(Path path) throws IOException {
-        return JSON_MAPPER.readValue(Files.readString(path), typeRef);
+    private static Map<String, Object> parseJson(Path path) throws IOException {
+        return JSON_MAPPER.readValue(Files.readString(path), TYPE_REFERENCE);
     }
 }
