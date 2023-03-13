@@ -59,9 +59,9 @@ class DifferTest {
     @Test
     void testGenerateFromYaml() throws Exception {
         String actualStylish =
-                Differ.generate("src/test/resources/file1.yaml", "src/test/resources/file2.yaml", "stylish");
+                Differ.generate("src/test/resources/file1.yml", "src/test/resources/file2.yml", "stylish");
         String actualPlain =
-                Differ.generate("src/test/resources/file1.yaml", "src/test/resources/file2.yaml", "plain");
+                Differ.generate("src/test/resources/file1.yml", "src/test/resources/file2.yml", "plain");
         assertEquals(EXPECTED_STYLISH, actualStylish);
         assertEquals(EXPECTED_PLAIN, actualPlain);
     }

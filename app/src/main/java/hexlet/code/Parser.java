@@ -14,8 +14,8 @@ import java.util.Map;
 public class Parser {
 
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
-
     private static final ObjectMapper YAML_MAPPER = new YAMLMapper();
+
     private static final TypeReference<Map<String, Object>> TYPE_REFERENCE = new TypeReference<>() {
     };
 
@@ -24,7 +24,7 @@ public class Parser {
         if (path.toString().endsWith(".json")) {
             return parseJson(path);
         }
-        if (path.toString().endsWith(".yaml")) {
+        if (path.toString().endsWith(".yml")) {
             return parseYaml(path);
         }
         return Collections.emptyMap();
