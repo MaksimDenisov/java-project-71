@@ -3,7 +3,12 @@ package hexlet.code;
 
 import hexlet.code.formatters.Formatter;
 
-import java.util.*;
+import java.util.Map;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.ArrayList;
+
 
 public class Differ {
 

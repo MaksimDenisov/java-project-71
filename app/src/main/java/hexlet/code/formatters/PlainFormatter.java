@@ -26,7 +26,7 @@ public class PlainFormatter implements Formatter.TextFormatter {
     public String format(List<Diff> diffs) {
         StringBuilder builder = new StringBuilder();
         diffs.forEach(diff -> builder.append(formatLine(diff)));
-        return builder.toString();
+        return builder.deleteCharAt(builder.length() - 1).toString();
     }
 
     private String formatLine(Diff diff) {
