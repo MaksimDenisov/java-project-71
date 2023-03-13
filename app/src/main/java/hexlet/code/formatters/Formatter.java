@@ -9,6 +9,7 @@ import java.util.Map;
 public class Formatter {
     public static final String STYLISH = "stylish";
     public static final String PLAIN = "plain";
+    public static final String JSON = "json";
 
     public interface TextFormatter {
         String format(List<Diff> diffs);
@@ -19,9 +20,11 @@ public class Formatter {
     static {
         FORMATTERS.put(STYLISH, new StylishFormatter());
         FORMATTERS.put(PLAIN, new PlainFormatter());
+        FORMATTERS.put(JSON, new JsonFormatter());
     }
 
     public static TextFormatter getFormatter(String formatName) {
         return FORMATTERS.getOrDefault(formatName, FORMATTERS.get(STYLISH));
     }
 }
+

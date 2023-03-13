@@ -3,19 +3,19 @@ package hexlet.code;
 public final class Diff {
 
     public enum TYPE {
-        IDENTITY,
+        UNCHANGED,
         UPDATED,
-        ADD,
-        REMOVE
+        ADDED,
+        REMOVED
     }
 
-    public record Pair(Object value1, Object value2) {
-        public Object getValue1() {
-            return value1;
+    public record Changes(Object oldValue, Object newValue) {
+        public Object getOldValue() {
+            return oldValue;
         }
 
-        public Object getValue2() {
-            return value2;
+        public Object getNewValue() {
+            return newValue;
         }
     }
 
@@ -24,19 +24,19 @@ public final class Diff {
     private final Object value;
 
     public static Diff identity(String key, Object value) {
-        return new Diff(Diff.TYPE.IDENTITY, key, value);
+        return new Diff(Diff.TYPE.UNCHANGED, key, value);
     }
 
     public static Diff added(String key, Object value) {
-        return new Diff(Diff.TYPE.ADD, key, value);
+        return new Diff(Diff.TYPE.ADDED, key, value);
     }
 
     public static Diff removed(String key, Object value) {
-        return new Diff(TYPE.REMOVE, key, value);
+        return new Diff(TYPE.REMOVED, key, value);
     }
 
     public static Diff update(String key, Object value, Object newValue) {
-        return  new Diff(TYPE.UPDATED, key, new Pair(value, newValue));
+        return  new Diff(TYPE.UPDATED, key, new Changes(value, newValue));
     }
 
     private Diff(TYPE type, String key, Object value) {

@@ -16,9 +16,9 @@ public class StylishFormatter implements Formatter.TextFormatter {
     private static final Map<Diff.TYPE, String> FORMATS = new HashMap<>();
 
     static {
-        FORMATS.put(Diff.TYPE.IDENTITY, NOT_CHANGE_STRING);
-        FORMATS.put(Diff.TYPE.ADD, ADD_STRING);
-        FORMATS.put(Diff.TYPE.REMOVE, REMOVE_STRING);
+        FORMATS.put(Diff.TYPE.UNCHANGED, NOT_CHANGE_STRING);
+        FORMATS.put(Diff.TYPE.ADDED, ADD_STRING);
+        FORMATS.put(Diff.TYPE.REMOVED, REMOVE_STRING);
     }
 
     public String format(List<Diff> diffs) {
@@ -29,9 +29,9 @@ public class StylishFormatter implements Formatter.TextFormatter {
 
     private String formatLine(Diff diff) {
         if (diff.getType() == Diff.TYPE.UPDATED) {
-            Diff.Pair pair = (Diff.Pair) diff.getValue();
-            return String.format(FORMATS.get(Diff.TYPE.REMOVE), diff.getKey(), pair.getValue1())
-                    + String.format(FORMATS.get(Diff.TYPE.ADD), diff.getKey(), pair.getValue2());
+            Diff.Changes pair = (Diff.Changes) diff.getValue();
+            return String.format(FORMATS.get(Diff.TYPE.REMOVED), diff.getKey(), pair.getOldValue())
+                    + String.format(FORMATS.get(Diff.TYPE.ADDED), diff.getKey(), pair.getNewValue());
         } else {
             return String.format(FORMATS.get(diff.getType()), diff.getKey(), diff.getValue());
         }
