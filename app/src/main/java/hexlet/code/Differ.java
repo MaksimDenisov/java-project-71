@@ -15,7 +15,7 @@ public class Differ {
         return Formatter.getFormatter(format).format(generate(filePath1, filePath2));
     }
 
-    private static List<Diff> generate(String filePath1, String filePath2) throws Exception {
+    public static List<Diff> generate(String filePath1, String filePath2) throws Exception {
         Map<String, Object> json1 = Parser.parse(filePath1);
         Map<String, Object> json2 = Parser.parse(filePath2);
         Set<String> keys = new TreeSet<>();
