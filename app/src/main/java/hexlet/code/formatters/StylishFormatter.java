@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StylishFormatter implements Formatter.TextFormatter {
+public final class StylishFormatter implements Formatter.TextFormatter {
     public static final String INDENT = "  ";
     public static final String FORMAT_STRING = "%s: %s\n";
     public static final String NOT_CHANGE_STRING = INDENT + "  " + FORMAT_STRING;

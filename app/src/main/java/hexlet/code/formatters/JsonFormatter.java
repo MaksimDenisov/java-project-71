@@ -6,7 +6,7 @@ import hexlet.code.Diff;
 
 import java.util.List;
 
-public class JsonFormatter  implements Formatter.TextFormatter {
+public final class JsonFormatter  implements Formatter.TextFormatter {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
