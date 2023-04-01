@@ -21,25 +21,25 @@ public class Differ {
     }
 
     private static List<Diff> generateDiffs(String filePath1, String filePath2) throws Exception {
-        Map<String, Object> json1 = Parser.parse(filePath1);
-        Map<String, Object> json2 = Parser.parse(filePath2);
+        Map<String, Object> data1 = Parser.parse(filePath1);
+        Map<String, Object> data2 = Parser.parse(filePath2);
         Set<String> keys = new TreeSet<>();
-        keys.addAll(json1.keySet());
-        keys.addAll(json2.keySet());
+        keys.addAll(data1.keySet());
+        keys.addAll(data2.keySet());
         List<Diff> diffs = new ArrayList<>();
         for (String key : keys) {
-            if (json1.containsKey(key) && json2.containsKey(key)) {
-                if ((json1.get(key) == null && json2.get(key) != null) || !json1.get(key).equals(json2.get(key))) {
-                    diffs.add(Diff.update(key, json1.get(key), json2.get(key)));
+            if (data1.containsKey(key) && data2.containsKey(key)) {
+                if ((data1.get(key) == null && data2.get(key) != null) || !data1.get(key).equals(data2.get(key))) {
+                    diffs.add(Diff.update(key, data1.get(key), data2.get(key)));
                 } else {
-                    diffs.add(Diff.identity(key, json1.get(key)));
+                    diffs.add(Diff.identity(key, data1.get(key)));
                 }
             } else {
-                if (json1.get(key) != null && json1.containsKey(key)) {
-                    diffs.add(Diff.removed(key, json1.get(key)));
+                if (data1.get(key) != null && data1.containsKey(key)) {
+                    diffs.add(Diff.removed(key, data1.get(key)));
                 }
-                if (json2.containsKey(key)) {
-                    diffs.add(Diff.added(key, json2.get(key)));
+                if (data2.containsKey(key)) {
+                    diffs.add(Diff.added(key, data2.get(key)));
                 }
             }
         }

@@ -7,20 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 public final class PlainFormatter implements Formatter.TextFormatter {
-    public static final String INDENT = "  ";
-    public static final String FORMAT_STRING = "%s: %s\n";
-    public static final String NOT_CHANGE_STRING = INDENT + "  " + FORMAT_STRING;
-    public static final String ADD_STRING = "Property '%s' was added with value: %s\n";
-    public static final String REMOVE_STRING = "Property '%s' was removed\n";
-    private static final String UPDATE_STRING = "Property '%s' was updated. From %s to %s\n";
 
-    private static final Map<Diff.TYPE, String> FORMATS = new HashMap<>();
+    private final Map<Diff.TYPE, String> formats = new HashMap<>();
 
-    static {
-        FORMATS.put(Diff.TYPE.UNCHANGED, NOT_CHANGE_STRING);
-        FORMATS.put(Diff.TYPE.ADDED, ADD_STRING);
-        FORMATS.put(Diff.TYPE.REMOVED, REMOVE_STRING);
-        FORMATS.put(Diff.TYPE.UPDATED, UPDATE_STRING);
+    {
+        formats.put(Diff.TYPE.UNCHANGED, "    %s: %s\n");
+        formats.put(Diff.TYPE.ADDED, "Property '%s' was added with value: %s\n");
+        formats.put(Diff.TYPE.REMOVED, "Property '%s' was removed\n");
+        formats.put(Diff.TYPE.UPDATED, "Property '%s' was updated. From %s to %s\n");
     }
 
     public String format(List<Diff> diffs) {
@@ -35,10 +29,10 @@ public final class PlainFormatter implements Formatter.TextFormatter {
         }
         if (diff.getType() == Diff.TYPE.UPDATED) {
             Diff.Changes pair = (Diff.Changes) diff.getValue();
-            return String.format(FORMATS.get(diff.getType()), diff.getKey(),
+            return String.format(formats.get(diff.getType()), diff.getKey(),
                     getStringValue(pair.getOldValue()), getStringValue(pair.getNewValue()));
         } else {
-            return String.format(FORMATS.get(diff.getType()), diff.getKey(), getStringValue(diff.getValue()));
+            return String.format(formats.get(diff.getType()), diff.getKey(), getStringValue(diff.getValue()));
         }
     }
 

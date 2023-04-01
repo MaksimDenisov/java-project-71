@@ -9,7 +9,15 @@ public final class Diff {
         REMOVED
     }
 
-    public record Changes(Object oldValue, Object newValue) {
+    public static final class Changes {
+        private final Object oldValue;
+        private final Object newValue;
+
+        public Changes(Object oldValue, Object newValue) {
+            this.oldValue = oldValue;
+            this.newValue = newValue;
+        }
+
         public Object getOldValue() {
             return oldValue;
         }

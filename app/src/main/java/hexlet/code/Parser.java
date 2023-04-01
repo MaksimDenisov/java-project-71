@@ -22,19 +22,11 @@ public class Parser {
     public static Map<String, Object> parse(String filePath) throws IOException {
         Path path = Paths.get(filePath).toAbsolutePath().normalize();
         if (path.toString().endsWith(".json")) {
-            return parseJson(path);
+            return JSON_MAPPER.readValue(Files.readString(path), TYPE_REFERENCE);
         }
         if (path.toString().endsWith(".yml")) {
-            return parseYaml(path);
+            return YAML_MAPPER.readValue(Files.readString(path), TYPE_REFERENCE);
         }
         return Collections.emptyMap();
-    }
-
-    private static Map<String, Object> parseYaml(Path path) throws IOException {
-        return YAML_MAPPER.readValue(Files.readString(path), TYPE_REFERENCE);
-    }
-
-    private static Map<String, Object> parseJson(Path path) throws IOException {
-        return JSON_MAPPER.readValue(Files.readString(path), TYPE_REFERENCE);
     }
 }
