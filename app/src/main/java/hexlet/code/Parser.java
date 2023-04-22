@@ -1,32 +1,34 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.Map;
 
 public class Parser {
 
-    private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
-    private static final ObjectMapper YAML_MAPPER = new YAMLMapper();
-
     private static final TypeReference<Map<String, Object>> TYPE_REFERENCE = new TypeReference<>() {
     };
 
-    public static Map<String, Object> parse(String filePath) throws IOException {
-        Path path = Paths.get(filePath).toAbsolutePath().normalize();
-        if (path.toString().endsWith(".json")) {
-            return JSON_MAPPER.readValue(Files.readString(path), TYPE_REFERENCE);
+    public static Map<String, Object> parse(String data, String format) throws IOException {
+        if ("json".equals(format)) {
+            return parseJson(data);
         }
-        if (path.toString().endsWith(".yml")) {
-            return YAML_MAPPER.readValue(Files.readString(path), TYPE_REFERENCE);
+        if ("yaml".equals(format)) {
+            return parseYaml(data);
         }
-        return Collections.emptyMap();
+        throw new IllegalArgumentException(String.format("%s unknown format. Supported formats : json, yaml.", format));
     }
+
+    private static Map<String, Object> parseJson(String json) throws JsonProcessingException {
+        return new ObjectMapper().readValue(json, TYPE_REFERENCE);
+    }
+
+    private static Map<String, Object> parseYaml(String json) throws JsonProcessingException {
+        return new YAMLMapper().readValue(json, TYPE_REFERENCE);
+    }
+
 }

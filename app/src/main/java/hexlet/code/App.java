@@ -23,8 +23,14 @@ public final class App implements Callable {
     }
 
     @Override
-    public Object call() throws Exception {
-        System.out.println(Differ.generate(filepath1, filepath2, format));
+    public Object call() {
+        try {
+            System.out.println(Differ.generate(filepath1, filepath2, format));
+            System.exit(0);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
         return null;
     }
 }

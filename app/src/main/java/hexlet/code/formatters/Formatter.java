@@ -1,8 +1,5 @@
 package hexlet.code.formatters;
 
-import hexlet.code.Diff;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,20 +8,16 @@ public class Formatter {
     public static final String PLAIN = "plain";
     public static final String JSON = "json";
 
-    public interface TextFormatter {
-        String format(List<Diff> diffs);
-    }
-
-    private static final  Map<String, TextFormatter> FORMATTERS = new HashMap<>();
-
-    static {
-        FORMATTERS.put(STYLISH, new StylishFormatter());
-        FORMATTERS.put(PLAIN, new PlainFormatter());
-        FORMATTERS.put(JSON, new JsonFormatter());
-    }
-
-    public static TextFormatter getFormatter(String formatName) {
-        return FORMATTERS.getOrDefault(formatName, FORMATTERS.get(STYLISH));
+    public static String format(String formatName, List<Map<String, Object>> diffs) {
+        if (STYLISH.equals(formatName)) {
+            return new StylishFormatter().format(diffs);
+        } else if (PLAIN.equals(formatName)) {
+            return new PlainFormatter().format(diffs);
+        } else if (JSON.equals(formatName)) {
+            return new JsonFormatter().format(diffs);
+        }
+        throw new IllegalArgumentException(String.format("\"%s\" is unknown output format. Use %s, %s, %s.",
+               formatName, STYLISH, PLAIN, JSON));
     }
 }
 

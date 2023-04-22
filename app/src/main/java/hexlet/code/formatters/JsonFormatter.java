@@ -2,18 +2,17 @@ package hexlet.code.formatters;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.Diff;
 
 import java.util.List;
+import java.util.Map;
 
-public final class JsonFormatter  implements Formatter.TextFormatter {
+public final class JsonFormatter {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    @Override
-    public String format(List<Diff> diffs) {
+    public String format(List<Map<String, Object>> diffs) {
         try {
-            return   mapper.writeValueAsString(diffs);
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(diffs);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
