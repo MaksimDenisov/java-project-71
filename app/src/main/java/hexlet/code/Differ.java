@@ -1,7 +1,6 @@
 package hexlet.code;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import hexlet.code.formatters.Formatter;
 
 import java.io.IOException;
@@ -15,14 +14,10 @@ import java.util.Map;
 public class Differ {
 
     public static String generate(String filePath1, String filePath2) {
-        try {
-            return generate(filePath1, filePath2, "stylish");
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Can't parse json.");
-        }
+        return generate(filePath1, filePath2, "stylish");
     }
 
-    public static String generate(String filePath1, String filePath2, String format) throws JsonProcessingException {
+    public static String generate(String filePath1, String filePath2, String format) {
         List<Map<String, Object>> diffs = Diff.getDiffs(parseFile(filePath1), parseFile(filePath2));
         return Formatter.format(format, diffs);
     }
