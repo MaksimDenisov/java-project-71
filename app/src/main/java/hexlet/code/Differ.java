@@ -14,8 +14,12 @@ import java.util.Map;
 
 public class Differ {
 
-    public static String generate(String filePath1, String filePath2) throws JsonProcessingException {
-        return generate(filePath1, filePath2, "stylish");
+    public static String generate(String filePath1, String filePath2) {
+        try {
+            return generate(filePath1, filePath2, "stylish");
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Can't parse json.");
+        }
     }
 
     public static String generate(String filePath1, String filePath2, String format) throws JsonProcessingException {
