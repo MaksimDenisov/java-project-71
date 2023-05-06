@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ class DifferTest {
     }
 
     @Test
-    void testGenerateFromJson() {
+    void testGenerateFromJson() throws JsonProcessingException {
         String actualStylish =
                 Differ.generate(RESOURCES + "file1.json", RESOURCES + "file2.json", "stylish");
         String actualPlain =
@@ -42,7 +43,7 @@ class DifferTest {
     }
 
     @Test
-    void testGenerateFromYaml() {
+    void testGenerateFromYaml() throws JsonProcessingException {
         String actualStylish =
                 Differ.generate("src/test/resources/file1.yml", "src/test/resources/file2.yml", "stylish");
         String actualPlain =

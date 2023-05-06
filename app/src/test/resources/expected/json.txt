@@ -3,23 +3,23 @@
   "value" : [ "a", "b", "c" ],
   "key" : "chars1"
 }, {
-  "newValue" : false,
-  "oldValue" : [ "d", "e", "f" ],
+  "value2" : false,
+  "value1" : [ "d", "e", "f" ],
   "type" : "updated",
   "key" : "chars2"
 }, {
-  "newValue" : true,
-  "oldValue" : false,
+  "value2" : true,
+  "value1" : false,
   "type" : "updated",
   "key" : "checked"
 }, {
-  "newValue" : [ "value1", "value2" ],
-  "oldValue" : null,
+  "value2" : [ "value1", "value2" ],
+  "value1" : null,
   "type" : "updated",
   "key" : "default"
 }, {
-  "newValue" : null,
-  "oldValue" : 45,
+  "value2" : null,
+  "value1" : 45,
   "type" : "updated",
   "key" : "id"
 }, {
@@ -35,8 +35,8 @@
   "value" : [ 1, 2, 3, 4 ],
   "key" : "numbers1"
 }, {
-  "newValue" : [ 22, 33, 44, 55 ],
-  "oldValue" : [ 2, 3, 4, 5 ],
+  "value2" : [ 22, 33, 44, 55 ],
+  "value1" : [ 2, 3, 4, 5 ],
   "type" : "updated",
   "key" : "numbers2"
 }, {
@@ -55,18 +55,18 @@
   },
   "key" : "obj1"
 }, {
-  "newValue" : "Another value",
-  "oldValue" : "Some value",
+  "value2" : "Another value",
+  "value1" : "Some value",
   "type" : "updated",
   "key" : "setting1"
 }, {
-  "newValue" : 300,
-  "oldValue" : 200,
+  "value2" : 300,
+  "value1" : 200,
   "type" : "updated",
   "key" : "setting2"
 }, {
-  "newValue" : "none",
-  "oldValue" : true,
+  "value2" : "none",
+  "value1" : true,
   "type" : "updated",
   "key" : "setting3"
 } ]

@@ -10,25 +10,23 @@ import java.util.Map;
 
 public class Parser {
 
-    private static final TypeReference<Map<String, Object>> TYPE_REFERENCE = new TypeReference<>() {
-    };
-
     public static Map<String, Object> parse(String data, String format) throws IOException {
-        if ("json".equals(format)) {
-            return parseJson(data);
-        }
-        if ("yaml".equals(format)) {
-            return parseYaml(data);
-        }
-        throw new IllegalArgumentException(String.format("%s unknown format. Supported formats : json, yaml.", format));
+        return switch (format) {
+            case "json" -> parseJson(data);
+            case "yaml" -> parseYaml(data);
+            default -> throw new IllegalArgumentException(
+                    String.format("%s unknown format. Supported formats : json, yaml.", format));
+        };
     }
 
     private static Map<String, Object> parseJson(String json) throws JsonProcessingException {
-        return new ObjectMapper().readValue(json, TYPE_REFERENCE);
+        return new ObjectMapper().readValue(json, new TypeReference<>() {
+        });
     }
 
     private static Map<String, Object> parseYaml(String json) throws JsonProcessingException {
-        return new YAMLMapper().readValue(json, TYPE_REFERENCE);
+        return new YAMLMapper().readValue(json, new TypeReference<>() {
+        });
     }
 
 }

@@ -19,18 +19,18 @@ public final class App implements Callable {
     private String format = "stylish";
 
     public static void main(String[] args) {
-        new CommandLine(new App()).execute(args);
+        int exitCode = new CommandLine(new App()).execute(args);
+        System.exit(exitCode);
     }
 
     @Override
-    public Object call() {
+    public Integer call() {
         try {
             System.out.println(Differ.generate(filepath1, filepath2, format));
-            System.exit(0);
+            return 0;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.exit(1);
+            return 1;
         }
-        return null;
     }
 }

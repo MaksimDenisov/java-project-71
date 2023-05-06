@@ -8,14 +8,8 @@ import java.util.Map;
 
 public final class JsonFormatter {
 
-    private final ObjectMapper mapper = new ObjectMapper();
-
-    public String format(List<Map<String, Object>> diffs) {
-        try {
-            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(diffs);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "";
+    public static String format(List<Map<String, Object>> diffs) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(diffs);
     }
 }
