@@ -41,7 +41,7 @@ class DifferTest {
 
         assertEquals(expectedStylish, actualStylish);
         assertEquals(expectedPlain, actualPlain);
-        JSONAssert.assertEquals(expectedJson, actualJson,false);
+        JSONAssert.assertEquals(expectedJson, actualJson, false);
     }
 
     @Test
@@ -55,7 +55,7 @@ class DifferTest {
 
         assertEquals(expectedStylish, actualStylish);
         assertEquals(expectedPlain, actualPlain);
-        JSONAssert.assertEquals(expectedJson, actualJson,false);
+        JSONAssert.assertEquals(expectedJson, actualJson, false);
     }
 
     private String getResourcePath(String fixtureName) {
