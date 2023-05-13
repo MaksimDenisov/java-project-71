@@ -28,7 +28,7 @@ public final class PlainFormatter {
 
     private static String getComplexValueAsString(Object o) {
         if (o == null) {
-            return null;
+            return "null";
         }
         if (o.getClass().isArray() || o instanceof List || o instanceof Map) {
             return "[complex value]";

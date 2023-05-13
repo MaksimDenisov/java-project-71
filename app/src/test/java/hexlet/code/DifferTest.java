@@ -1,11 +1,12 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,40 +19,46 @@ class DifferTest {
 
     @BeforeAll
     static void beforeAll() throws IOException {
-        expectedPlain = Files.readString(Paths.get(RESOURCES + "expected/plain.txt")
+        expectedPlain = Files.readString(getExpectedPath("plain.txt"));
+        expectedStylish = Files.readString(getExpectedPath("stylish.txt"));
+        expectedJson = Files.readString(getExpectedPath("json.txt"));
+    }
+
+    private static Path getExpectedPath(String filename) {
+        return Paths.get(RESOURCES + "expected/" + filename)
                 .toAbsolutePath()
-                .normalize());
-        expectedStylish = Files.readString(Paths.get(RESOURCES + "expected/stylish.txt")
-                .toAbsolutePath()
-                .normalize());
-        expectedJson = Files.readString(Paths.get(RESOURCES + "expected/json.txt")
-                .toAbsolutePath()
-                .normalize());
+                .normalize();
     }
 
     @Test
-    void testGenerateFromJson() throws JsonProcessingException {
-        String actualStylish =
-                Differ.generate(RESOURCES + "file1.json", RESOURCES + "file2.json", "stylish");
-        String actualPlain =
-                Differ.generate(RESOURCES + "file1.json", RESOURCES + "file2.json", "plain");
-        String actualJson =
-                Differ.generate(RESOURCES + "file1.json", RESOURCES + "file2.json", "json");
+    void testGenerateFromJson() throws Exception {
+        String fixture1 = getResourcePath("file1.json");
+        String fixture2 = getResourcePath("file2.json");
+
+        String actualStylish = Differ.generate(fixture1, fixture2, "stylish");
+        String actualPlain = Differ.generate(fixture1, fixture2, "plain");
+        String actualJson = Differ.generate(fixture1, fixture2, "json");
+
         assertEquals(expectedStylish, actualStylish);
         assertEquals(expectedPlain, actualPlain);
-        assertEquals(expectedJson, actualJson);
+        JSONAssert.assertEquals(expectedJson, actualJson,false);
     }
 
     @Test
-    void testGenerateFromYaml() throws JsonProcessingException {
-        String actualStylish =
-                Differ.generate("src/test/resources/file1.yml", "src/test/resources/file2.yml", "stylish");
-        String actualPlain =
-                Differ.generate("src/test/resources/file1.yml", "src/test/resources/file2.yml", "plain");
-        String actualJson =
-                Differ.generate(RESOURCES + "file1.yml", RESOURCES + "file2.yml", "json");
+    void testGenerateFromYaml() throws Exception {
+        String fixture1 = getResourcePath("file1.yml");
+        String fixture2 = getResourcePath("file2.yml");
+
+        String actualStylish = Differ.generate(fixture1, fixture2, "stylish");
+        String actualPlain = Differ.generate(fixture1, fixture2, "plain");
+        String actualJson = Differ.generate(fixture1, fixture2, "json");
+
         assertEquals(expectedStylish, actualStylish);
         assertEquals(expectedPlain, actualPlain);
-        assertEquals(expectedJson, actualJson);
+        JSONAssert.assertEquals(expectedJson, actualJson,false);
+    }
+
+    private String getResourcePath(String fixtureName) {
+        return RESOURCES + fixtureName;
     }
 }

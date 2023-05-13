@@ -13,7 +13,7 @@ public class Parser {
     public static Map<String, Object> parse(String data, String format) throws IOException {
         return switch (format) {
             case "json" -> parseJson(data);
-            case "yaml" -> parseYaml(data);
+            case "yml", "yaml" -> parseYaml(data);
             default -> throw new IllegalArgumentException(
                     String.format("%s unknown format. Supported formats : json, yaml.", format));
         };

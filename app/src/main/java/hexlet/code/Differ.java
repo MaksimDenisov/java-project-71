@@ -1,6 +1,5 @@
 package hexlet.code;
 
-
 import hexlet.code.formatters.Formatter;
 
 import java.io.IOException;
@@ -13,11 +12,11 @@ import java.util.Map;
 
 public class Differ {
 
-    public static String generate(String filePath1, String filePath2) {
+    public static String generate(String filePath1, String filePath2) throws Exception {
         return generate(filePath1, filePath2, "stylish");
     }
 
-    public static String generate(String filePath1, String filePath2, String format) {
+    public static String generate(String filePath1, String filePath2, String format) throws Exception {
         List<Map<String, Object>> diffs = Diff.getDiffs(parseFile(filePath1), parseFile(filePath2));
         return Formatter.format(format, diffs);
     }
@@ -25,20 +24,13 @@ public class Differ {
     private static Map<String, Object> parseFile(String filePath) {
         try {
             Path path = Paths.get(filePath).toAbsolutePath().normalize();
-            return Parser.parse(Files.readString(path), getFileFormat(path));
+            return Parser.parse(Files.readString(path), getFileExtension(path.toString()));
         } catch (IOException e) {
             throw new IllegalArgumentException("Can't read " + e.getMessage());
         }
     }
 
-    private static String getFileFormat(Path path) {
-        if (path.toString().endsWith(".json")) {
-            return "json";
-        }
-        if (path.toString().endsWith(".yml") || path.toString().endsWith(".yaml")) {
-            return "yaml";
-        }
-        throw new IllegalArgumentException(String.format("\"%s\" is unsupported file. Supported: JSON, YAML.",
-                path.getFileName()));
+    private static String getFileExtension(String filename) {
+        return (filename.contains(".")) ? filename.substring(filename.lastIndexOf(".") + 1).toLowerCase() : "";
     }
 }
