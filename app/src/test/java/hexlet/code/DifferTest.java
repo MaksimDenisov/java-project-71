@@ -15,10 +15,13 @@ class DifferTest {
     private static String expectedStylish;
     private static String expectedPlain;
     private static String expectedJson;
+    private static String expectedDefault;
+
     private static final String RESOURCES = "src/test/resources/";
 
     @BeforeAll
     static void beforeAll() throws IOException {
+        expectedDefault = Files.readString(getExpectedPath("stylish.txt"));
         expectedPlain = Files.readString(getExpectedPath("plain.txt"));
         expectedStylish = Files.readString(getExpectedPath("stylish.txt"));
         expectedJson = Files.readString(getExpectedPath("json.txt"));
@@ -35,10 +38,12 @@ class DifferTest {
         String fixture1 = getResourcePath("file1.json");
         String fixture2 = getResourcePath("file2.json");
 
+        String actualDefault = Differ.generate(fixture1, fixture2);
         String actualStylish = Differ.generate(fixture1, fixture2, "stylish");
         String actualPlain = Differ.generate(fixture1, fixture2, "plain");
         String actualJson = Differ.generate(fixture1, fixture2, "json");
 
+        assertEquals(expectedDefault, actualDefault);
         assertEquals(expectedStylish, actualStylish);
         assertEquals(expectedPlain, actualPlain);
         JSONAssert.assertEquals(expectedJson, actualJson, false);
@@ -49,10 +54,12 @@ class DifferTest {
         String fixture1 = getResourcePath("file1.yml");
         String fixture2 = getResourcePath("file2.yml");
 
+        String actualDefault = Differ.generate(fixture1, fixture2);
         String actualStylish = Differ.generate(fixture1, fixture2, "stylish");
         String actualPlain = Differ.generate(fixture1, fixture2, "plain");
         String actualJson = Differ.generate(fixture1, fixture2, "json");
 
+        assertEquals(expectedDefault, actualDefault);
         assertEquals(expectedStylish, actualStylish);
         assertEquals(expectedPlain, actualPlain);
         JSONAssert.assertEquals(expectedJson, actualJson, false);

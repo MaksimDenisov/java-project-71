@@ -21,19 +21,19 @@ public final class Diff {
             diff.put("key", key);
             Object value1 = data1.get(key);
             Object value2 = data2.get(key);
-            if (data1.containsKey(key) && data2.containsKey(key) && keysEquals(value1, value2)) {
+            if (!data2.containsKey(key)) {
+                diff.put("type", "removed");
+                diff.put("value", value1);
+            } else if (!data1.containsKey(key)) {
+                diff.put("type", "added");
+                diff.put("value", value2);
+            } else if (keysEquals(value1, value2)) {
                 diff.put("type", "not-change");
                 diff.put("value", value1);
-            } else if (data1.containsKey(key) && data2.containsKey(key) && !keysEquals(value1, value2)) {
+            } else {
                 diff.put("type", "updated");
                 diff.put("value1", value1);
                 diff.put("value2", value2);
-            } else if (data1.containsKey(key)) {
-                diff.put("type", "removed");
-                diff.put("value", value1);
-            } else {
-                diff.put("type", "added");
-                diff.put("value", value2);
             }
             diffs.add(diff);
         }

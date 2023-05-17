@@ -2,13 +2,11 @@ package hexlet.code;
 
 import hexlet.code.formatters.Formatter;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-
 
 public class Differ {
 
@@ -21,13 +19,9 @@ public class Differ {
         return Formatter.format(format, diffs);
     }
 
-    private static Map<String, Object> parseFile(String filePath) {
-        try {
-            Path path = Paths.get(filePath).toAbsolutePath().normalize();
-            return Parser.parse(Files.readString(path), getFileExtension(path.toString()));
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Can't read " + e.getMessage());
-        }
+    private static Map<String, Object> parseFile(String filePath) throws Exception {
+        Path path = Paths.get(filePath).toAbsolutePath().normalize();
+        return Parser.parse(Files.readString(path), getFileExtension(path.toString()));
     }
 
     private static String getFileExtension(String filename) {
